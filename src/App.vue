@@ -63,9 +63,12 @@
     </main>
 
     <footer class="mt-8 text-center">
-      <p class="text-sm text-gray-600">
+      <p class="font-semibold text-sm text-gray-600">
         Created by Luca Malattia with <a class="text-indigo-500 underline" href="https://vuejs.org/" target="_blank">Vue.js</a> and <a class="text-indigo-500 underline" href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a>
-        </p>
+      </p>
+      <p class="mt-2 font-semibold text-sm text-gray-600">
+        The code is freely available on <a class="text-indigo-500 underline" href="https://github.com/ilmala/fighting-game" target="_blank">GitHub</a>.
+      </p>
     </footer>
   </div>
 </template>
@@ -83,7 +86,7 @@ export default {
     };
   },
   mounted() {
-    //this.fillBoard();
+    this.fillBoard();
   },
   methods: {
     createCreature(index) {
