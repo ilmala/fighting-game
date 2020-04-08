@@ -77,6 +77,8 @@
                 :creature="creature"
                 :index="index"
                 @delete="handleDeleteRow"
+                @increaseHealth="handleIncreaseHealth"
+                @decreaseHealth="handleDecreaseHealth"
               ></TableRow>
             </template>
           </tbody>
@@ -115,9 +117,8 @@
 </template>
 
 <script>
-import * as names from './utils/names.js'
-import { Types } from './utils/types.js'
 import TableRow from '@/components/TableRow'
+import Creature from './utils/creature.js'
 
 export default {
   name: 'App',
@@ -133,47 +134,26 @@ export default {
     handleDeleteRow(id) {
       this.$delete(this.creatures, id);
     },
-    createCreature(index) {
-      console.debug(index);
-      const typeId = this.getRandomIntInclusive(1, 4);
-      const type = Types.find(type => type.id === typeId);
-      const strength = this.getRandomIntInclusive(
-        type.strength[0],
-        type.strength[1]
-      );
-      const health = this.getRandomIntInclusive(type.health[0], type.health[1]);
-      const name = this.getRandomNameByType(type, index);
-
-      return {
-        id: index,
-        name: name,
-        type: type,
-        strength: strength,
-        strengthMax: strength,
-        health: health,
-        healthMax: health,
-        specialPower: type.specialPower
-      }
+    handleIncreaseHealth(id) {
+      this.creatures[id].health++;
     },
+    handleDecreaseHealth(id) {
+      this.creatures[id].health--;
+    },
+
     rollDice() {
       alert(`Roll the Dice`)
     },
+
     resetBoard() {
       this.fillBoard()
     },
+
     fillBoard() {
       this.creatures = {};
       for (let i = 1; i <= 100; i++) {
-        this.$set(this.creatures, i, this.createCreature(i));
+        this.$set(this.creatures, i, Creature.create(i));
       }
-    },
-    getRandomIntInclusive(min, max) {
-      min = Math.ceil(min)
-      max = Math.floor(max)
-      return Math.floor(Math.random() * (max - min + 1)) + min //Il max è incluso e il min è incluso
-    },
-    getRandomNameByType(type, index) {
-      return names[type.slug][index]
     }
   },
   components: { TableRow }

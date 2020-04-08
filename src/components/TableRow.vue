@@ -132,10 +132,10 @@ export default {
       this.$emit('delete', this.creature.id);
     },
     increaseHealth() {
-      alert(`Increase ${this.creature.name} Health`)
+      this.$emit('increaseHealth', this.creature.id);
     },
     decreaseHealth() {
-      alert(`Decrease ${this.creature.name} Health`)
+      this.$emit('decreaseHealth', this.creature.id);
     }
   }
 }
