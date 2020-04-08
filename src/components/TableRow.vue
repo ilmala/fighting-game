@@ -1,6 +1,8 @@
 <template>
   <tr class="border-t border-gray-900">
-    <td class="font-display font-bold text-white px-4 py-2">{{ creature.name }}</td>
+    <td class="font-display font-bold text-white px-4 py-2">
+      {{ creature.name }}
+    </td>
     <td class="px-4 py-2">
       <div class="relative w-20 h-20 rounded-lg shadow">
         <img
@@ -11,20 +13,28 @@
         <div
           class="absolute transform translate-x-2 bottom-0 right-0 mb-1 py-1 px-2 leading-none font-semibold text-center text-white rounded shadow-sm text-xs"
           :class="`bg-${creature.type.color}-700`"
-        >{{ creature.type.name }}</div>
+        >
+          {{ creature.type.name }}
+        </div>
       </div>
     </td>
     <td class="px-4 py-2">
       <div class="w-24">
         <div class="flex items-center">
-          <div class="font-bold text-gray-200 text-base text-center">{{ creature.strength }}</div>
+          <div class="font-bold text-gray-200 text-base text-center">
+            {{ creature.strength }}
+          </div>
           <span class="text-gray-600 text-sm mx-1">/</span>
-          <div class="text-gray-600 text-sm text-center">{{ creature.strengthMax }}</div>
+          <div class="text-gray-600 text-sm text-center">
+            {{ creature.strengthMax }}
+          </div>
         </div>
         <div class="mt-2 h-3 bg-gray-900 overflow-hidden shadow rounded-full">
           <div
             class="h-full bg-indigo-500 rounded-full"
-            :style="`width: ${(100-(creature.strength/creature.strengthMax)/100)}%`"
+            :style="
+              `width: ${100 - creature.strength / creature.strengthMax / 100}%`
+            "
           ></div>
         </div>
       </div>
@@ -32,14 +42,20 @@
     <td class="px-4 py-2">
       <div class="w-24">
         <div class="flex items-center">
-          <div class="font-bold text-gray-200 text-base text-center">{{ creature.health }}</div>
+          <div class="font-bold text-gray-200 text-base text-center">
+            {{ creature.health }}
+          </div>
           <span class="text-gray-600 text-sm mx-1">/</span>
-          <div class="text-gray-600 text-sm text-center">{{ creature.healthMax }}</div>
+          <div class="text-gray-600 text-sm text-center">
+            {{ creature.healthMax }}
+          </div>
         </div>
         <div class="mt-2 h-3 bg-gray-900 overflow-hidden shadow rounded-full">
           <div
             class="h-full bg-red-500 rounded-full"
-            :style="`width: ${(100-(creature.health/creature.healthMax)/100)}%`"
+            :style="
+              `width: ${100 - creature.health / creature.healthMax / 100}%`
+            "
           ></div>
         </div>
       </div>
@@ -86,7 +102,7 @@
             <line x1="8" y1="11" x2="16" y2="11" />
           </svg>
         </button>
-        <button @click.prevent="deleteCreature" class="ml-2">
+        <button @click.prevent="deleteCreature" class="ml-2 focus:outline-none">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -110,20 +126,19 @@
 
 <script>
 export default {
-  props: ["creature","index"],
+  props: ['creature', 'index'],
   methods: {
     deleteCreature() {
-      alert(`Delete creature ${this.creature.name}`);
+      this.$emit('delete', this.creature.id);
     },
     increaseHealth() {
-      alert(`Increase ${this.creature.name} Health`);
+      alert(`Increase ${this.creature.name} Health`)
     },
     decreaseHealth() {
-      alert(`Decrease ${this.creature.name} Health`);
-    },
+      alert(`Decrease ${this.creature.name} Health`)
+    }
   }
-};
+}
 </script>
 
-<style>
-</style>
+<style></style>
