@@ -32,9 +32,7 @@
         <div class="mt-2 h-3 bg-gray-900 overflow-hidden shadow rounded-full">
           <div
             class="h-full bg-indigo-500 rounded-full"
-            :style="
-              `width: ${100 - creature.strength / creature.strengthMax / 100}%`
-            "
+            :style="`width: ${healthStrength}%`"
           ></div>
         </div>
       </div>
@@ -53,9 +51,7 @@
         <div class="mt-2 h-3 bg-gray-900 overflow-hidden shadow rounded-full">
           <div
             class="h-full bg-red-500 rounded-full"
-            :style="
-              `width: ${100 - creature.health / creature.healthMax / 100}%`
-            "
+            :style="`width: ${healthPercentage}%`"
           ></div>
         </div>
       </div>
@@ -126,19 +122,29 @@
 
 <script>
 export default {
-  props: ['creature', 'index'],
+  props: ["creature"],
+  computed: {
+    healthStrength() {
+      return parseInt(
+        (this.creature.strength * 100) / this.creature.strengthMax
+      );
+    },
+    healthPercentage() {
+      return parseInt((this.creature.health * 100) / this.creature.healthMax);
+    }
+  },
   methods: {
     deleteCreature() {
-      this.$emit('delete', this.creature.id);
+      this.$emit("delete", this.creature.id);
     },
     increaseHealth() {
-      this.$emit('increaseHealth', this.creature.id);
+      this.$emit("increaseHealth", this.creature.id);
     },
     decreaseHealth() {
-      this.$emit('decreaseHealth', this.creature.id);
+      this.$emit("decreaseHealth", this.creature.id);
     }
   }
-}
+};
 </script>
 
 <style></style>
