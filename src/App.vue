@@ -8,7 +8,6 @@
         @closeModal="onNextState"
         key="roll-dice"
       />
-
       <SpecialPowersModal
         v-if="showModal === 'special-powers'"
         :round="round"
