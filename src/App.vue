@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="bg-gray-900 py-16 min-h-screen antialiased">
+  <div id="app" class="bg-gray-900 py-12 min-h-screen antialiased">
     <div v-if="showModal" class="z-30 fixed inset-0 overlay-dark"></div>
     <transition-group name="slideIn" tag="div">
       <RollingDiceModal
@@ -16,20 +16,20 @@
       />
     </transition-group>
     <header class="max-w-5xl mx-auto px-4">
-      <div class="flex justify-between items-center">
-        <div>
-          <h1 class="font-display font-black text-4xl text-white">
+      <div class="">
+        <div class="text-center">
+          <h1 class="font-display font-black text-5xl leading-10 tracking-wide text-white">
             Round {{ currentRound }}
           </h1>
-          <p class="text-gray-500 text-base tracking-wider leading-5">
+          <p class="mt-2 text-gray-500 text-base tracking-wider leading-5">
             {{ creaturesCount }} creature{{ creaturesCount !== 1 ? "s" : "" }}
             still in game
           </p>
         </div>
 
-        <div class="flex flex-col items-end">
+        <div class="mt-8 flex flex-col justify-center items-center">
           <button
-            class="flex items-center bg-indigo-600 hover:bg-indigo-500 text-white text-lg px-4 py-2 leading-6 rounded-lg font-black"
+            class="transition duration-300 flex items-center bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline text-white text-lg px-4 py-2 leading-6 rounded-lg font-black"
             @click.prevent="rollDice"
           >
             <span class="mr-3">Roll The Dice</span>
@@ -47,21 +47,10 @@
             </svg>
           </button>
           <button
-            class="mt-3 inline-flex bg-gray-800 hover:bg-gray-700 font-semibold text-xs text-gray-500 hover:text-white px-4 py-1 rounded-lg"
+            class="transition duration-300 mt-3 inline-flex bg-gray-800 hover:bg-gray-700 font-semibold text-xs text-gray-500 hover:text-white px-4 py-1 rounded-lg"
             @click.prevent="resetBoard"
           >
-            <span class="mr-2">Reset game</span>
-            <svg
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              class="w-4 h-4 text-gray-600"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
+            <span class="">Reset game</span>
           </button>
         </div>
       </div>
