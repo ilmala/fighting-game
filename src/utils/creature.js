@@ -32,7 +32,7 @@ const creature = {
     return Number.shuffleArray(this.getIds(creatures));
   },
   getIds(creatures) {
-    return Object.values(Object.keys(creatures).map((key) => creatures[key].id));
+    return Object.values(Object.keys(creatures).map(key => creatures[key].id));
   }
 };
 

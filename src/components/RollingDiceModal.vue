@@ -1,8 +1,23 @@
 <template>
-  <div class="z-40 fixed inset-0 flex flex-col justify-center items-center cursor-pointer" @click="onNextState()">
+  <div
+    class="z-40 fixed inset-0 flex flex-col justify-center items-center cursor-pointer"
+    @click="onNextState()"
+  >
     <div class="absolute inset-x-0 bottom-0 px-8 py-6 leading-6">
-      <p class="font-bolder text-sm text-gray-400 flex justify-center items-center">
-        <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6 text-indigo-500"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd"></path></svg>
+      <p
+        class="font-bolder text-sm text-gray-400 flex justify-center items-center"
+      >
+        <svg
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          class="w-6 h-6 text-indigo-500"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
         <span class="ml-2">Click anywhere to proceed</span>
       </p>
     </div>
