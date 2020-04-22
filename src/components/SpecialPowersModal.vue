@@ -9,26 +9,13 @@
     <div class="modal-content px-12 py-20 rounded-lg text-center">
       <p class="text-base text-gray-400">Round {{ round.id }}</p>
       <h2 class="font-display font-black text-5xl text-white">
-        Rolling Dice
+        {{ round.specialPowerLevel }} Special Powers Activated!
       </h2>
-      <div v-if="round.specialPowerLevel" class="">
-        <div
-          class="inline-block bg-yellow-600 text-lg text-yellow-900 font-black px-4 py-1 rounded shadow transform"
-          style="transform: rotate(4deg);"
-        >
-          Double Shot!
-        </div>
-      </div>
-      <div class="mt-8 flex justify-center text-white">
-        <div
-          class="flex justify-center items-center w-24 h-24 bg-gray-100 text-gray-900 mx-2 font-black text-4xl rounded-lg"
-        >
-          {{ round.roll1 }}
-        </div>
-        <div
-          class="flex justify-center items-center w-24 h-24 bg-gray-100 text-gray-900 mx-2 font-black text-4xl rounded-lg"
-        >
-          {{ round.roll2 }}
+      <div class="mt-10 px-12 text-lg text-gray-400 text-left">
+        <div class="mt-3 flex items-center" v-for="(assign, index) in round.specialPowersAssigned" :key="index">
+          <svg fill="currentColor" viewBox="0 0 20 20" class="w-8 h-8 text-yellow-600"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+          <div class="ml-2 font-black text-gray-100">{{ assign.creature.name }}</div>
+          <div class="ml-2 text-text-600">gain <span class="text-yellow-600">{{ assign.power.description }}</span></div>
         </div>
       </div>
     </div>
@@ -48,14 +35,14 @@ export default {
   mounted() {
     this.openTimeout = setTimeout(() => {
       this.onNextState();
-    }, 5000);
+    }, 10000);
   },
   destroyed() {
     this.openTimeout = null;
   },
   methods: {
     onNextState() {
-      this.$emit("closeModal", RoundStateType.ROUND_BEFORE_FIGHT);
+      this.$emit("closeModal", RoundStateType.ROUND_END);
     }
   }
 };

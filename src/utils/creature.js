@@ -21,12 +21,18 @@ const creature = {
       strengthMax: strength,
       health: health,
       healthMax: health,
-      specialPower: type.specialPower
+      specialPowers: [...type.specialPower]
     };
   },
 
   getRandomNameByType(type, index) {
     return names[type.slug][index];
+  },
+  getShuffleIds(creatures) {
+    return Number.shuffleArray(this.getIds(creatures));
+  },
+  getIds(creatures) {
+    return Object.values(Object.keys(creatures).map((key) => creatures[key].id));
   }
 };
 

@@ -9,6 +9,12 @@ const number = {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  },
+  shuffleArray(arr) {
+    return arr
+      .map(a => [Math.random(), a])
+      .sort((a, b) => a[0] - b[0])
+      .map(a => a[1]);
   }
 };
 

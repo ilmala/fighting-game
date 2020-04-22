@@ -1,17 +1,28 @@
 <template>
   <div
     id="app"
-    class="bg-gray-900 py-16 border-t-8 border-indigo-500 min-h-screen antialiased"
+    class="bg-gray-900 py-16 min-h-screen antialiased"
   >
-    <RollingDiceModal
-      v-if="isRollingDice"
-      :round="round"
-      @closeModal="onNextState"
-    />
 
-    <header class="max-w-4xl mx-auto px-4">
+    <div v-if="showModal" class="z-30 fixed inset-0 overlay-dark"></div>
+    <transition-group name="slideIn" tag="div">
+      <RollingDiceModal
+        v-if="showModal === 'roll-dice'"
+        :round="round"
+        @closeModal="onNextState"
+        key="roll-dice"
+      />
+
+      <SpecialPowersModal
+        v-if="showModal === 'special-powers'"
+        :round="round"
+        @closeModal="onNextState"
+        key="special-powers"
+      />
+    </transition-group>
+    <header class="max-w-5xl mx-auto px-4">
       <div class="flex justify-between items-center">
-        <div class="">
+        <div>
           <h1 class="font-display font-black text-5xl text-white">
             Fighting Game
           </h1>
@@ -27,73 +38,63 @@
           </p>
         </div>
 
-        <div class="flex justify-center">
+        <div class="flex flex-col items-end">
           <button
-            class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg font-semibold text-sm"
+            class="flex items-center bg-indigo-600 hover:bg-indigo-500 text-white text-lg px-4 py-2 leading-6 rounded-lg font-black"
             @click.prevent="rollDice"
           >
-            Roll The Dice
+            <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6 text-indigo-200"><path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z"></path><path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z"></path></svg>
+            <span class="ml-2">Roll The Dice</span>
           </button>
           <button
-            class="ml-2 inline-flex bg-gray-800 hover:bg-gray-700 text-gray-500 hover:text-white px-4 py-2 rounded-lg font-semibold text-sm"
+            class="mt-3 inline-flex bg-gray-800 hover:bg-gray-700 font-semibold text-xs text-gray-500 hover:text-white px-4 py-1 rounded-lg"
             @click.prevent="resetBoard"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="w-5 h-5"
-            >
-              <polyline points="23 4 23 10 17 10"></polyline>
-              <polyline points="1 20 1 14 7 14"></polyline>
-              <path
-                d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"
-              ></path>
-            </svg>
-            <span class="ml-2">Reset</span>
+            <svg fill="currentColor" viewBox="0 0 20 20" class="w-4 h-4 text-gray-600"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"></path></svg>
+            <span class="ml-2">Reset game</span>
           </button>
         </div>
       </div>
     </header>
 
-    <main class="mt-12 max-w-4xl mx-auto px-4">
+    <main class="mt-12 max-w-5xl mx-auto px-4">
       <div
         class="mt-4 bg-gray-800 rounded-lg shadow-2xl overflow-y-hidden overflow-x-auto"
       >
         <table class="w-full">
           <thead>
-            <tr>
-              <th class="px-4 py-3 text-xs text-gray-600 text-left">Name</th>
-              <th class="px-4 py-3 text-xs text-gray-600 text-left">Type</th>
-              <th class="px-4 py-3 text-xs text-gray-600 text-left">
-                Strength
-              </th>
-              <th class="px-4 py-3 text-xs text-gray-600 text-left">Health</th>
-              <th class="px-4 py-3 text-xs text-gray-600 text-left">
-                Special Power
-              </th>
-              <th class="px-4 py-3 text-xs text-gray-600 text-center">
-                Action
-              </th>
-            </tr>
+          <tr>
+            <th class="px-4 py-3 text-xs text-gray-600 text-left uppercase tracking-wide">
+              Name
+            </th>
+            <th class="px-4 py-3 text-xs text-gray-600 text-center uppercase tracking-wide">
+              Type
+            </th>
+            <th class="px-4 py-3 text-xs text-gray-600 text-center uppercase tracking-wide">
+              Strength
+            </th>
+            <th class="px-4 py-3 text-xs text-gray-600 text-center uppercase tracking-wide">
+              Health
+            </th>
+            <th class="px-4 py-3 text-xs text-gray-600 text-left uppercase tracking-wide">
+              Special Power
+            </th>
+            <th class="px-4 py-3 text-xs text-gray-600 text-center uppercase tracking-wide">
+              Action
+            </th>
+          </tr>
           </thead>
           <tbody>
-            <template v-for="(creature, index) in creatures">
-              <TableRow
-                :key="creature.id"
-                :creature="creature"
-                :index="index"
-                @delete="handleDeleteRow"
-                @increaseHealth="handleIncreaseHealth"
-                @decreaseHealth="handleDecreaseHealth"
-              ></TableRow>
-            </template>
+          <template v-for="(creature, index) in creatures">
+            <TableRow
+              :key="creature.id"
+              :creature="creature"
+              :index="index"
+              @delete="handleDeleteRow"
+              @increaseHealth="handleIncreaseHealth"
+              @decreaseHealth="handleDecreaseHealth"
+            ></TableRow>
+          </template>
           </tbody>
         </table>
       </div>
@@ -106,14 +107,14 @@
           class="text-indigo-500 underline"
           href="https://vuejs.org/"
           target="_blank"
-          >Vue.js</a
+        >Vue.js</a
         >
         and
         <a
           class="text-indigo-500 underline"
           href="https://tailwindcss.com/"
           target="_blank"
-          >Tailwind CSS</a
+        >Tailwind CSS</a
         >
       </p>
       <p class="mt-2 font-semibold text-sm text-gray-600">
@@ -122,7 +123,7 @@
           class="text-indigo-500 underline"
           href="https://github.com/ilmala/fighting-game"
           target="_blank"
-          >GitHub</a
+        >GitHub</a
         >.
       </p>
     </footer>
@@ -130,81 +131,120 @@
 </template>
 
 <script>
-import TableRow from "@/components/TableRow";
-import RollingDiceModal from "@/components/RollingDiceModal";
-import Creature from "./utils/creature";
-import Dice from "./utils/dice";
-import * as RoundStateType from "./utils/roundStateTypes";
+  import TableRow from "@/components/TableRow";
+  import RollingDiceModal from "@/components/RollingDiceModal";
+  import SpecialPowersModal from "./components/SpecialPowersModal";
+  import Creature from "./utils/creature";
+  import Dice from "./utils/dice";
+  import * as RoundStateType from "./utils/roundStateTypes";
+  import {specialPowers} from "./utils/specialPowerTypes";
 
-export default {
-  data() {
-    return {
-      creatures: {},
-      rounds: {},
-      currentRound: 1,
-      roundState: RoundStateType.ROUND_INIT
-    };
-  },
-  mounted() {
-    this.fillBoard();
-  },
-  computed: {
-    isRollingDice() {
-      return this.roundState === RoundStateType.ROUND_ROLL;
+  export default {
+    data() {
+      return {
+        creatures: {},
+        rounds: {},
+        currentRound: 1,
+        roundState: RoundStateType.ROUND_INIT,
+        showModal: null
+      };
     },
-    round() {
-      return this.rounds[this.currentRound] || false;
-    },
-    creaturesCount() {
-      return Object.keys(this.creatures).length;
-    }
-  },
-  methods: {
-    rollDice() {
-      this.roundState = RoundStateType.ROUND_ROLL;
-      let diceRollResult = Dice.roll(this.currentRound);
-
-      this.$set(this.rounds, this.currentRound, diceRollResult);
-    },
-
-    fillBoard() {
-      this.creatures = {};
-      for (let i = 1; i <= 100; i++) {
-        this.$set(this.creatures, i, Creature.create(i));
-      }
-    },
-    resetBoard() {
-      this.rounds = {};
-      this.currentRound = 1;
-      this.roundState = RoundStateType.ROUND_INIT;
+    mounted() {
       this.fillBoard();
     },
-
-    onNextState(state) {
-      this.roundState = state;
-      if (this.roundState === RoundStateType.ROUND_END) {
-        this.onNextRound();
+    computed: {
+      isRollingDice() {
+        return this.roundState === RoundStateType.ROUND_ROLL;
+      },
+      round() {
+        return this.rounds[this.currentRound] || false;
+      },
+      creaturesCount() {
+        return Object.keys(this.creatures).length;
       }
     },
-    onNextRound() {
-      this.currentRound++;
-    },
+    methods: {
+      rollDice() {
+        let diceRollResult = Dice.roll(this.currentRound);
+        this.$set(this.rounds, this.currentRound, diceRollResult);
+        this.showModal = "roll-dice";
+      },
+      assignSpecialPowers() {
+        const shuffledCreatureIds = Creature.getShuffleIds(this.creatures);
+        for (let i = 0; i < this.round.specialPowerLevel; i++) {
+          // for now assign to random creature
+          let specialPower = specialPowers.find(el => el.id === i + 1);
+          let creature = this.creatures[shuffledCreatureIds[i]];
+          let foundSP = creature.specialPowers.find(el => el.id === i + 1);
+          if(foundSP) {
+            foundSP.quantity++;
+            console.log(foundSP.quantity);
+          }else{
+            creature.specialPowers.push(Object.assign(specialPower, {quantity: 1}));
+          }
 
-    handleDeleteRow(id) {
-      this.$delete(this.creatures, id);
+          this.round.specialPowersAssigned.push({
+            creature: creature,
+            power: specialPower
+          });
+
+          console.info(`${creature.name} gain level ${i + 1} ${specialPower.description}`);
+        }
+        this.showModal = "special-powers";
+      },
+
+      fillBoard() {
+        this.creatures = {};
+        for (let i = 1; i <= 100; i++) {
+          this.$set(this.creatures, i, Creature.create(i));
+        }
+      },
+      resetBoard() {
+        this.rounds = {};
+        this.currentRound = 1;
+        this.roundState = RoundStateType.ROUND_INIT;
+        this.fillBoard();
+      },
+
+      onNextState(state) {
+        this.showModal = null;
+        this.roundState = state;
+        if (this.roundState === RoundStateType.ROUND_ROLL) {
+          this.rollDice();
+        }
+        if (this.roundState === RoundStateType.ROUND_BEFORE_FIGHT) {
+          if (this.round.specialPowerLevel > 0) {
+            this.assignSpecialPowers();
+          } else {
+            this.roundState = RoundStateType.ROUND_END;
+          }
+        }
+        if (this.roundState === RoundStateType.ROUND_END) {
+          this.onNextRound();
+        }
+      },
+
+      onNextRound() {
+        this.currentRound++;
+        this.roundState = RoundStateType.ROUND_INIT;
+      },
+
+      handleDeleteRow(id) {
+        this.$delete(this.creatures, id);
+      },
+      handleIncreaseHealth(id) {
+        this.creatures[id].health++;
+      },
+      handleDecreaseHealth(id) {
+        this.creatures[id].health--;
+      }
     },
-    handleIncreaseHealth(id) {
-      this.creatures[id].health++;
-    },
-    handleDecreaseHealth(id) {
-      this.creatures[id].health--;
+    components: {
+      TableRow,
+      RollingDiceModal,
+      SpecialPowersModal
     }
-  },
-  components: {
-    TableRow,
-    RollingDiceModal
-  }
-};
+  };
 </script>
 
 <style lang="scss" src="./assets/sass/app.scss"></style>

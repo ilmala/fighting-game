@@ -7,16 +7,12 @@ const dice = {
 
     let specialPowerLevel = roll1 === roll2 ? roll1 : 0;
 
-    if (specialPowerLevel) {
-      // handle special power
-      console.log("Special power!!");
-    }
     return {
       id: currentRound,
       roll1: roll1,
       roll2: roll2,
       specialPowerLevel: specialPowerLevel,
-      specialPowers: []
+      specialPowersAssigned: []
     };
   }
 };
