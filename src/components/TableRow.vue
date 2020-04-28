@@ -2,7 +2,9 @@
   <tr class="border-t border-gray-900">
     <td class="px-4 py-2">
       <span class="text-gray-600 text-sm">{{ creature.id }}.</span>
-      <span class="ml-1 font-display font-bold text-white">{{ creature.name }}</span>
+      <span class="ml-1 font-display font-bold text-white">{{
+        creature.name
+      }}</span>
     </td>
     <td class="px-4 py-2">
       <div class="relative w-20 h-20 rounded-lg shadow">
@@ -86,14 +88,53 @@
     </td>
     <td class="px-4 py-2">
       <div class="flex justify-center items-center">
-        <button @click.prevent="increaseHealth" class="transition duration-300 rounded-full hover:bg-gray-900 focus:outline-none focus:shadow-outline">
-          <svg fill="currentColor" viewBox="0 0 20 20" class="transition duration-300 w-8 h-8 text-gray-700 hover:text-gray-400 hover:bg-gray-900 rounded-full p-1"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path></svg>
+        <button
+          @click.prevent="increaseHealth"
+          class="transition duration-300 rounded-full hover:bg-gray-900 focus:outline-none focus:shadow-outline"
+        >
+          <svg
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            class="transition duration-300 w-8 h-8 text-gray-700 hover:text-gray-400 hover:bg-gray-900 rounded-full p-1"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
         </button>
-        <button @click.prevent="decreaseHealth" class="transition duration-300 rounded-full hover:bg-gray-900 focus:outline-none focus:shadow-outline">
-          <svg fill="currentColor" viewBox="0 0 20 20" class="transition duration-300 w-8 h-8 text-gray-700 hover:text-gray-400 p-1"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path></svg>
+        <button
+          @click.prevent="decreaseHealth"
+          class="transition duration-300 rounded-full hover:bg-gray-900 focus:outline-none focus:shadow-outline"
+        >
+          <svg
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            class="transition duration-300 w-8 h-8 text-gray-700 hover:text-gray-400 p-1"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
         </button>
-        <button @click.prevent="deleteCreature" class="transition duration-300 rounded-full hover:bg-gray-900 focus:outline-none focus:shadow-outline">
-          <svg fill="currentColor" viewBox="0 0 20 20" class="transition duration-300 w-8 h-8 text-gray-700 hover:text-red-400 p-1"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+        <button
+          @click.prevent="deleteCreature"
+          class="transition duration-300 rounded-full hover:bg-gray-900 focus:outline-none focus:shadow-outline"
+        >
+          <svg
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            class="transition duration-300 w-8 h-8 text-gray-700 hover:text-red-400 p-1"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
         </button>
       </div>
     </td>

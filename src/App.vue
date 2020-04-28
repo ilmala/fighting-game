@@ -1,5 +1,6 @@
 <template>
-  <div id="app" class="bg-gray-900 py-12 min-h-screen antialiased">
+  <div id="app" class="bg-gray-900 min-h-screen antialiased">
+    <AppHeader />
     <div v-if="showModal" class="z-30 fixed inset-0 overlay-dark"></div>
     <transition-group name="slideIn" tag="div">
       <RollingDiceModal
@@ -15,10 +16,10 @@
         key="special-powers"
       />
     </transition-group>
-    <header class="max-w-5xl mx-auto px-4">
+    <header class="mt-16 max-w-5xl mx-auto px-4">
       <div class="">
         <div class="text-center">
-          <h1 class="font-display font-black text-5xl leading-10 tracking-wide text-white">
+          <h1 class="font-black text-5xl leading-10 tracking-wide text-white">
             Round {{ currentRound }}
           </h1>
           <p class="mt-2 text-gray-500 text-base tracking-wider leading-5">
@@ -56,7 +57,7 @@
       </div>
     </header>
 
-    <main class="mt-12 max-w-5xl mx-auto px-4">
+    <main class="mt-12 max-w-5xl mx-auto px-8">
       <div
         class="mt-4 bg-gray-800 rounded-lg shadow-2xl overflow-y-hidden overflow-x-auto"
       >
@@ -111,8 +112,8 @@
       </div>
     </main>
 
-    <footer class="mt-8 text-center">
-      <p class="font-semibold text-sm text-gray-600">
+    <footer class="my-12 text-center">
+      <p class="text-sm text-gray-600">
         Created by Luca Malattia with
         <a
           class="text-indigo-500 underline"
@@ -128,20 +129,12 @@
           >Tailwind CSS</a
         >
       </p>
-      <p class="mt-2 font-semibold text-sm text-gray-600">
-        The code is freely available on
-        <a
-          class="text-indigo-500 underline"
-          href="https://github.com/ilmala/fighting-game"
-          target="_blank"
-          >GitHub</a
-        >.
-      </p>
     </footer>
   </div>
 </template>
 
 <script>
+import AppHeader from "./components/AppHeader";
 import TableRow from "@/components/TableRow";
 import RollingDiceModal from "@/components/RollingDiceModal";
 import SpecialPowersModal from "./components/SpecialPowersModal";
@@ -255,6 +248,7 @@ export default {
     }
   },
   components: {
+    AppHeader,
     TableRow,
     RollingDiceModal,
     SpecialPowersModal
